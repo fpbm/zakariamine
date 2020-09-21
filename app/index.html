@@ -162,9 +162,9 @@ p.lead {
             <div></div>
         </div>
 		<h4 id="result" style="display:none;" class="text-uppercase font-weight-bold">أنتم مسجلون في التنبيهات</h4>
-<div class="card">
+<div id="notiftype" class="card">
 
-<div class="card-body">
+<div  class="card-body">
 <div class="row clearfix">
 <div class=" col-md-12">
 <div class="form-group">
@@ -287,6 +287,8 @@ p.lead {
 			document.getElementById('loader').style.display = 'none';
 			document.getElementById('result').style.display = 'none';
 			document.getElementById('requestpermission').style.display = 'block';
+			document.getElementById('notiftype').style.display = 'block';
+			
 			navigator.serviceWorker.register('../messaging-sw.js')
 			.then((registration) => {
 				messaging.useServiceWorker(registration);
@@ -303,6 +305,7 @@ function requestpermission() {
 				document.getElementById('loader').style.display = 'block';
 				document.getElementById('result').style.display = 'none';
 				document.getElementById('requestpermission').style.display = 'none';
+				document.getElementById('notiftype').style.display = 'none';
                 MsgElem.innerHTML = "Notification permission granted." 
                 console.log("Notification permission granted.");
                 // get the token in the form of promise
@@ -353,6 +356,7 @@ function deleteToken() {
 					document.getElementById('loader').style.display = 'none';
 					document.getElementById('result').style.display = 'block';
 					document.getElementById('requestpermission').style.display = 'none';
+					document.getElementById('notiftype').style.display = 'none';
 					}
 					},
 					complete:(data)=>{
