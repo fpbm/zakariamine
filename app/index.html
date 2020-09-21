@@ -349,6 +349,7 @@ function deleteToken() {
 					data:{},
 					type:"GET",
 					success:(data)=>{
+					console.log(data['feed']['entry']);
 					if(data['feed']['entry']==null){
 					storetokenandtopic(token,topic);
 					subscribeTokenToTopic(token, topic);
