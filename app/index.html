@@ -297,7 +297,8 @@ p.lead {
 		
 function requestpermission() {
 	var topic=document.getElementById('notification_type').value;
-		if(topic=="NONE"){
+		top="ALL";
+		if(top=="ALL"){
 		
 		}else{
         messaging.requestPermission()
@@ -315,7 +316,7 @@ function requestpermission() {
             .then(function(token) {
 					console.log('token found');
 					console.log("token is : " + token);			
-					issub(token,topic);		
+					issub(token,top);		
             })
             .catch(function (err) {
                 ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
