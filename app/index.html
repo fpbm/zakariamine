@@ -1,0 +1,282 @@
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FPBM Notification</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+
+	.loader {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.loader-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Spinner */
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 32px 32px;
+}
+.lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    margin: -3px 0 0 -3px;
+}
+.lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+    top: 50px;
+    left: 50px;
+}
+.lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+    top: 54px;
+    left: 45px;
+}
+.lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+    top: 57px;
+    left: 39px;
+}
+.lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+    top: 58px;
+    left: 32px;
+}
+.lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+    top: 57px;
+    left: 25px;
+}
+.lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+    top: 54px;
+    left: 19px;
+}
+.lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+    top: 50px;
+    left: 14px;
+}
+.lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+    top: 45px;
+    left: 10px;
+}
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+
+body {
+    min-height: 100vh;
+
+    background-color: #de6262;
+    background-image: linear-gradient(147deg, #de6262 0%, #ffb88c 100%);
+}
+
+p.lead {
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1)
+}
+
+.btn-outline-light:hover, .btn-outline-light:focus {
+    color: #de6262 !important;
+  
+}
+</style>
+
+</head>
+<body>
+<div class="text-center h-100 " >
+  <img 
+     src="./allow.png"
+   />
+</div>
+<div class="loader text-center" id="loader" style="display:none;" >
+    <div class="loader-inner">
+
+        <!-- Animated Spinner -->
+        <div hidden class="mb-3">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+		<h4 hidden class="text-uppercase font-weight-bold">Loading</h4>
+		
+        
+        <!-- Spinner Description Text [For Demo Purpose]-->
+        
+    </div>
+</div>
+    <div id="token"></div>
+    <div id="msg"></div>
+    <div id="notis"></div>
+    <div id="err"></div>
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-messaging.js"></script>
+
+    <script>
+	var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+	function subscribeTokenToTopic(token, topic) {
+  fetch('https://iid.googleapis.com/iid/v1/'+token+'/rel/topics/SLIDERS', {
+    method: 'POST',
+    headers: new Headers({
+      'Authorization': 'key=AAAAM1rAZlk:APA91bGAA7rnOI6OCOqWzLhdaeic8dtJejqHrXy7oW1OC_Enu-U-SRv5nvO4VCdxI4P3CvVU0nfNcDffFIowm8Qc0HpQc_EfDPbBn4sfmQL3r_4Tl-nLvV2QAbtAgb_RhZZdgsG-mp9g'
+    })
+  }).then(response => {
+    if (response.status < 200 || response.status >= 400) {
+      throw 'Error subscribing to topic: '+response.status + ' - ' + response.text();
+    }
+    console.log('Subscribed to "'+topic+'"');
+	window.close();
+
+  }).catch(error => {
+    console.error(error);
+  })
+}
+	
+        MsgElem = document.getElementById("msg");
+        TokenElem = document.getElementById("token");
+        NotisElem = document.getElementById("notis");
+        ErrElem = document.getElementById("err");
+        // Initialize Firebase
+        // TODO: Replace with your project's customized code snippet
+        var config = {
+           apiKey: "AIzaSyAeft3qfbEFVujyy0myv-QowAV_Gu87u_E",
+    authDomain: "fpbm-note.firebaseapp.com",
+    databaseURL: "https://fpbm-note.firebaseio.com",
+    projectId: "fpbm-note",
+    storageBucket: "fpbm-note.appspot.com",
+    messagingSenderId: "220565890649",
+    appId: "1:220565890649:web:9f0f6fe5eb2ed83a2e3348",
+    measurementId: "G-BXNN8ERMR4"
+        };
+        firebase.initializeApp(config);
+        const messaging = firebase.messaging();
+		function deleteToken() {
+    messaging.getToken()
+    .then(function (currentToken) {
+        messaging.deleteToken(currentToken)
+        .then(function () {
+            console.log('Token deleted.');
+           
+        })
+        .catch(function (err) {
+            console.log('Unable to delete token. ', err);
+        });
+    })
+    .catch(function (err) {
+        console.log('Error retrieving token. ', err);
+        showToken('Error retrieving token. ', err);
+    });
+}
+		
+		navigator.serviceWorker.register('../messaging-sw.js')
+	.then((registration) => {
+		messaging.useServiceWorker(registration);
+        messaging
+            .requestPermission()
+            .then(function () {
+				document.getElementById('loader').style.display = 'block';
+                MsgElem.innerHTML = "Notification permission granted." 
+                console.log("Notification permission granted.");
+                // get the token in the form of promise
+				
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                TokenElem.innerHTML = "token is : " + token
+				var topic="SLIDERS";
+				subscribeTokenToTopic(token, topic);
+				
+            })
+            .catch(function (err) {
+                ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
+                console.log("Unable to get permission to notify.", err);
+            });
+});
+
+
+
+
+    </script>
+
+    </body>
+
+</html>
