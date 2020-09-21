@@ -280,7 +280,7 @@ p.lead {
 				navigator.serviceWorker.register('../messaging-sw.js')
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
-					//requestpermission();
+					requestpermission();
 					});	
 
 			}else{
