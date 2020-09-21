@@ -280,7 +280,7 @@ p.lead {
 				navigator.serviceWorker.register('../messaging-sw.js')
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
-					requestpermission();
+					//requestpermission();
 					});	
 
 			}else{
@@ -297,8 +297,7 @@ p.lead {
 		
 function requestpermission() {
 	var topic=document.getElementById('notification_type').value;
-		top="ALL";
-		if(top=="ALL"){
+		if(topic=="NONE"){
 		
 		}else{
         messaging.requestPermission()
@@ -316,7 +315,7 @@ function requestpermission() {
             .then(function(token) {
 					console.log('token found');
 					console.log("token is : " + token);			
-					issub(token,top);		
+					issub(token,topic);		
             })
             .catch(function (err) {
                 ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
@@ -350,7 +349,6 @@ function deleteToken() {
 					data:{},
 					type:"GET",
 					success:(data)=>{
-					console.log(data['feed']['entry']);
 					if(data['feed']['entry']==null){
 					storetokenandtopic(token,topic);
 					subscribeTokenToTopic(token, topic);
