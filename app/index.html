@@ -197,7 +197,7 @@ p.lead {
 
 
 </div>
-		<button style="display:none;"  	id="requestpermission" type="button" onclick="requestpermission(0);" class="btn btn-primary btn-lg btn-block">اضغط هنا للاشتراك في التنبيهات</button>
+		<button style="display:none;"  	id="requestpermission" type="button" onclick="requestpermission(2);" class="btn btn-primary btn-lg btn-block">اضغط هنا للاشتراك في التنبيهات</button>
 </div>
 </div>
         
@@ -350,7 +350,7 @@ function deleteToken() {
 }	
 	
 	
-	function issub(token,topic) {		
+	function issub(token) {		
 		$.ajax({
                     url: 'https://spreadsheets.google.com/feeds/list/1bvxZVMS4N2SSEqsa9IxdWk6vFngO5sNBKOPzhzR6ftI/1/public/values?alt=json&sq=token="'+token+'"',
 					data:{},
