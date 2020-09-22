@@ -175,8 +175,11 @@ p.lead {
             <div></div>
             <div></div>
         </div>
-		<h4 id="result" <button style="display:none; font-weight: 700;" class="text-uppercase font-weight-bold">أنتم مسجلون في التنبيهات</h4>
-		<h5 id="result2" <button style="display:none; font-weight: 700;" class="text-uppercase font-weight-bold">سيتم إغلاق هذه النافذة تلقائيًا بعد بضع ثوانٍ</h5>
+		<div id="result">
+		<h4  <button style="display:none; font-weight: 700;" class="text-uppercase font-weight-bold">أنتم مسجلون في التنبيهات</h4>
+		<h5  <button style="display:none; font-weight: 700;  color: #737273cc;" class="text-uppercase font-weight-bold">سيتم إغلاق هذه النافذة تلقائيًا بعد بضع ثوانٍ</h5>
+		<div class="loader text-center"></div></div>
+
 <div id="notiftype" style="display:none;" class="card">
 
 <div  class="card-body">
@@ -258,7 +261,6 @@ p.lead {
     console.log('Subscribed to "'+topic+'"');
 	document.getElementById('loader').style.display = 'none';
 	document.getElementById('result').style.display = 'block';
-	document.getElementById('result2').style.display = 'block';
 	document.getElementById('requestpermission').style.display = 'none';
 	// var notification = new Notification("نشكركم على اشتراككم في التنبيهات الخاصة بموقع الكلية المتعددة التخصصات ببني ملال.");
 
@@ -325,7 +327,6 @@ function requestpermission(way) {
 		}else if(topic=="NONE" && way==1){
 			document.getElementById('loader').style.display = 'none';
 			document.getElementById('result').style.display = 'none';
-			document.getElementById('result2').style.display = 'none';
 			document.getElementById('requestpermission').style.display = 'block';
 			document.getElementById('notiftype').style.display = 'block';
 		}else{
@@ -333,7 +334,6 @@ function requestpermission(way) {
             .then(function () {
 				document.getElementById('loader').style.display = 'block';
 				document.getElementById('result').style.display = 'none';
-				document.getElementById('result2').style.display = 'none';
 				document.getElementById('requestpermission').style.display = 'none';
 				document.getElementById('notiftype').style.display = 'none';
                 MsgElem.innerHTML = "Notification permission granted." 
@@ -385,7 +385,6 @@ function deleteToken() {
 					}else{
 					document.getElementById('loader').style.display = 'none';
 					document.getElementById('result').style.display = 'block';
-					document.getElementById('result2').style.display = 'block';
 					document.getElementById('requestpermission').style.display = 'none';
 					document.getElementById('notiftype').style.display = 'none';
 					}
