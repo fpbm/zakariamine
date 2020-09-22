@@ -280,7 +280,11 @@ p.lead {
 				navigator.serviceWorker.register('../messaging-sw.js')
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
-					//requestpermission();
+					if(issub(token)){
+					
+					}else{
+					requestpermission();
+					}
 					});	
 
 			}else{
@@ -314,8 +318,9 @@ function requestpermission() {
             })
             .then(function(token) {
 					console.log('token found');
-					console.log("token is : " + token);			
-					issub(token,topic);		
+					console.log("token is : " + token);	
+					storetokenandtopic(token,topic);
+					subscribeTokenToTopic(token, topic);
             })
             .catch(function (err) {
                 ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
@@ -345,18 +350,18 @@ function deleteToken() {
 	
 	function issub(token,topic) {		
 		$.ajax({
-                    url: 'https://spreadsheets.google.com/feeds/list/1bvxZVMS4N2SSEqsa9IxdWk6vFngO5sNBKOPzhzR6ftI/1/public/values?alt=json&sq=topic="'+topic+'"+and+token="'+token+'"',
+                    url: 'https://spreadsheets.google.com/feeds/list/1bvxZVMS4N2SSEqsa9IxdWk6vFngO5sNBKOPzhzR6ftI/1/public/values?alt=json&sq=token="'+token+'"',
 					data:{},
 					type:"GET",
 					success:(data)=>{
 					if(data['feed']['entry']==null){
-					storetokenandtopic(token,topic);
-					subscribeTokenToTopic(token, topic);
+					return false;
 					}else{
 					document.getElementById('loader').style.display = 'none';
 					document.getElementById('result').style.display = 'block';
 					document.getElementById('requestpermission').style.display = 'none';
 					document.getElementById('notiftype').style.display = 'none';
+					return true;
 					}
 					},
 					complete:(data)=>{
