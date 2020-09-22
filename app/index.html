@@ -280,9 +280,8 @@ p.lead {
 				navigator.serviceWorker.register('../messaging-sw.js')
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
-					if(!issub(token)){
-					requestpermission(1);
-					}
+					issub(token);
+					
 					});	
 
 			}else{
@@ -358,13 +357,12 @@ function deleteToken() {
 					type:"GET",
 					success:(data)=>{
 					if(data['feed']['entry']==null){
-					return false;
+					requestpermission(1);
 					}else{
 					document.getElementById('loader').style.display = 'none';
 					document.getElementById('result').style.display = 'block';
 					document.getElementById('requestpermission').style.display = 'none';
 					document.getElementById('notiftype').style.display = 'none';
-					return true;
 					}
 					},
 					complete:(data)=>{
