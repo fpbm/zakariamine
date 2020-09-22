@@ -235,7 +235,7 @@ p.lead {
 
     <script>
 	
-  
+	var brk=0;
 	var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -264,7 +264,7 @@ p.lead {
     console.log('Subscribed to "'+topic+'"');
 	document.getElementById('loader').style.display = 'none';
 	document.getElementById('result').style.display = 'block';
-	setInterval(function(){ window.close(); }, 5000);
+	setInterval(function(){ if(brk==0){ window.close(); }else{ brk=0; } }, 5000);
 	document.getElementById('requestpermission').style.display = 'none';
 	// var notification = new Notification("نشكركم على اشتراككم في التنبيهات الخاصة بموقع الكلية المتعددة التخصصات ببني ملال.");
 
@@ -369,6 +369,7 @@ function deleteToken() {
 			document.getElementById('result').style.display = 'none';
 			document.getElementById('requestpermission').style.display = 'block';
 			document.getElementById('notiftype').style.display = 'block';
+			brk=1;
         })
         .catch(function (err) {
             console.log('Unable to delete token. ', err);
@@ -394,7 +395,7 @@ function deleteToken() {
 					document.getElementById('result').style.display = 'block';
 					document.getElementById('requestpermission').style.display = 'none';
 					document.getElementById('notiftype').style.display = 'none';
-					setInterval(function(){ window.close(); }, 5000);
+					setInterval(function(){ if(brk==0){ window.close(); }else{ brk=0; }  }, 5000);
 					}
 					},
 					complete:(data)=>{
