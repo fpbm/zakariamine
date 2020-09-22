@@ -197,7 +197,7 @@ p.lead {
 
 
 </div>
-		<button style="display:none;"  	id="requestpermission" type="button" onclick="requestpermission(null);" class="btn btn-primary btn-lg btn-block">اضغط هنا للاشتراك في التنبيهات</button>
+		<button style="display:none;"  	id="requestpermission" type="button" onclick="requestpermission(0);" class="btn btn-primary btn-lg btn-block">اضغط هنا للاشتراك في التنبيهات</button>
 </div>
 </div>
         
@@ -299,8 +299,13 @@ p.lead {
 		
 function requestpermission(way) {
 	var topic=document.getElementById('notification_type').value;
-		if(topic=="NONE" && way==null){
+		if(topic=="NONE" && way==0){
 		
+		}else if(topic=="NONE" && way==1){
+			document.getElementById('loader').style.display = 'none';
+			document.getElementById('result').style.display = 'none';
+			document.getElementById('requestpermission').style.display = 'block';
+			document.getElementById('notiftype').style.display = 'block';
 		}else{
         messaging.requestPermission()
             .then(function () {
