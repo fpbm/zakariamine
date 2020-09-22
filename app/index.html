@@ -280,7 +280,7 @@ p.lead {
 				navigator.serviceWorker.register('../messaging-sw.js')
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
-					if(issub(token)){
+					if(!issub(token)){
 					
 					}else{
 					requestpermission();
