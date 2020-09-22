@@ -280,7 +280,13 @@ p.lead {
 				navigator.serviceWorker.register('../messaging-sw.js')
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
-					issub(token);
+					 messaging.getToken().then(function (currentToken) {
+						issub(currentToken);
+						})
+						.catch(function (err) {
+							console.log('Error retrieving token. ', err);
+							showToken('Error retrieving token. ', err);
+						});
 					
 					});	
 
