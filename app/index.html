@@ -197,7 +197,7 @@ p.lead {
 
 
 </div>
-		<button style="display:none;"  	id="requestpermission" type="button" onclick="requestpermission();" class="btn btn-primary btn-lg btn-block">اضغط هنا للاشتراك في التنبيهات</button>
+		<button style="display:none;"  	id="requestpermission" type="button" onclick="requestpermission(null);" class="btn btn-primary btn-lg btn-block">اضغط هنا للاشتراك في التنبيهات</button>
 </div>
 </div>
         
@@ -281,9 +281,7 @@ p.lead {
 				.then((registration) => {
 					messaging.useServiceWorker(registration);
 					if(!issub(token)){
-					
-					}else{
-					requestpermission();
+					requestpermission(1);
 					}
 					});	
 
@@ -299,9 +297,9 @@ p.lead {
 				});
 			}
 		
-function requestpermission() {
+function requestpermission(way) {
 	var topic=document.getElementById('notification_type').value;
-		if(topic=="NONE"){
+		if(topic=="NONE" and way==null){
 		
 		}else{
         messaging.requestPermission()
