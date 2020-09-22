@@ -264,7 +264,7 @@ p.lead {
     console.log('Subscribed to "'+topic+'"');
 	document.getElementById('loader').style.display = 'none';
 	document.getElementById('result').style.display = 'block';
-	setInterval(function(){ alert(brk); if(brk==0){ window.close(); }else{ brk=0;  clearInterval(interval); } }, 5000);
+	setInterval(function(){  if(brk==0){ window.close(); }else{ brk=0;  clearInterval(interval); } }, 5000);
 	document.getElementById('requestpermission').style.display = 'none';
 	// var notification = new Notification("نشكركم على اشتراككم في التنبيهات الخاصة بموقع الكلية المتعددة التخصصات ببني ملال.");
 
