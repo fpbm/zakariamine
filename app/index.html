@@ -178,7 +178,9 @@ p.lead {
 		<div id="result" style="display:none;" >
 		<h4 style=" font-weight: 700;" class="text-uppercase font-weight-bold">أنتم مسجلون في التنبيهات</h4>
 		<h4 style="color: #737273cc;" class="text-uppercase font-weight-bold">سيتم إغلاق هذه النافذة تلقائيًا بعد بضع ثوانٍ</h4>
-		<div  class="loader text-center" ></div></div>
+		<div  class="loader text-center" ></div>
+		<button style="display:none; font-weight: 700;" id="deletetoken" type="button" onclick="deleteToken();" class="btn btn-primary btn-lg btn-block">الغاء الاشتراك</button>
+		</div>
 
 <div id="notiftype" style="display:none;" class="card">
 
@@ -261,7 +263,7 @@ p.lead {
     console.log('Subscribed to "'+topic+'"');
 	document.getElementById('loader').style.display = 'none';
 	document.getElementById('result').style.display = 'block';
-	setInterval(function(){ window.close(); }, 3000);
+	setInterval(function(){ window.close(); }, 5000);
 	document.getElementById('requestpermission').style.display = 'none';
 	// var notification = new Notification("نشكركم على اشتراككم في التنبيهات الخاصة بموقع الكلية المتعددة التخصصات ببني ملال.");
 
@@ -362,7 +364,10 @@ function deleteToken() {
         messaging.deleteToken(currentToken)
         .then(function () {
             console.log('Token deleted.');
-           
+			document.getElementById('loader').style.display = 'none';
+			document.getElementById('result').style.display = 'none';
+			document.getElementById('requestpermission').style.display = 'block';
+			document.getElementById('notiftype').style.display = 'block';
         })
         .catch(function (err) {
             console.log('Unable to delete token. ', err);
@@ -388,7 +393,7 @@ function deleteToken() {
 					document.getElementById('result').style.display = 'block';
 					document.getElementById('requestpermission').style.display = 'none';
 					document.getElementById('notiftype').style.display = 'none';
-					setInterval(function(){ window.close(); }, 3000);
+					setInterval(function(){ window.close(); }, 5000);
 					}
 					},
 					complete:(data)=>{
