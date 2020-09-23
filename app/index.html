@@ -267,7 +267,7 @@ function subscribe(token, topic){
   fetch('https://iid.googleapis.com/iid/v1/'+token+'/rel/topics/'+topic, {
     method: 'POST',
     headers: new Headers({
-      'Authorization': 'key='+data
+      'Authorization': data
     })
   }).then(response => {
     if (response.status < 200 || response.status >= 400) {
