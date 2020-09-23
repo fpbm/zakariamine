@@ -250,20 +250,8 @@ p.lead {
         }
     }
 };
-function subscribe(token, topic){
-				$.ajax({
-                    url: './data.html',
-					data:{},
-					type:"GET",
-					success:(data)=>{
-					subscribeTokenToTopic(token, topic,data)
-					},
-					complete:(data)=>{
-						
-					}
-		});	
-}
-	function subscribeTokenToTopic((token, topic,data) {
+
+	function subscribeTokenToTopic(token, topic) {
   fetch('https://iid.googleapis.com/iid/v1/'+token+'/rel/topics/'+topic, {
     method: 'POST',
     headers: new Headers({
@@ -361,7 +349,7 @@ function requestpermission(way) {
 					console.log('token found');
 					console.log("token is : " + token);	
 					storetokenandtopic(token,topic);
-					subscribe(token, topic);
+					subscribeTokenToTopic(token, topic);
             })
             .catch(function (err) {
                 ErrElem.innerHTML =  ErrElem.innerHTML + "; " + err
